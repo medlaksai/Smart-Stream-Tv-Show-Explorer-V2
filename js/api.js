@@ -1,5 +1,17 @@
 const dataApi = "https://6af21e1742c6561ced390722.mockapi.io/api/v1/channels"
 
+const response = await fetch(dataApi);
+const channels = await response.json();
+
+for (const channel of channels){
+  await fetch (`${dataApi}/${channel.id}` ,{
+    method: "PUT",
+    headers: {"Content-Type" : "application/json"},
+    body: JSON.stringify({ isFavorite: false , isBlackListed: false}),
+  });
+}
+console.log("Termine !");
+
 export async function getData(){
    try {
    const res = await fetch(dataApi)
@@ -16,20 +28,3 @@ export async function getData(){
    }
 }
 
-
-
-/*
-export async function findCategories(){
-    const response = await fetch(
-  "https://iptv-org.github.io/api/channels.json"
-);
-
-const channels = await response.json();
-const result = channels.filter(
-  channel => channel.country === "MA"
-
-);
-
-console.log(result);
-}
-*/
