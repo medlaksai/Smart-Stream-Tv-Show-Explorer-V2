@@ -72,6 +72,7 @@ channelsContainer.addEventListener("click" , (event) => {
     periodHours.textContent = "12:30 PM - 13:00 PM"
     title.textContent = selectedChannel.name  
     videoSrc.src = selectedChannel.previewImage 
+
     channelsContainer.querySelectorAll("button").forEach(button => {
         button.classList.remove("bg-blue-800");
     });
@@ -79,7 +80,3 @@ channelsContainer.addEventListener("click" , (event) => {
 })
 
 
-const channels = await getData();
-
-channelsData = channels;
-renderChannels(channels); 
