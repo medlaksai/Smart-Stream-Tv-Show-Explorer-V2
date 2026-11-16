@@ -27,12 +27,14 @@ export function renderChannels(channels){
     channelsContainer.innerHTML = channels.map((channel) =>
     `
         <button type="button" id="${channel.id}" class="flex flex-rows shrink-0 gap-4 hover:bg-gray-700 w-full h-10 cursor-pointer hover:border hover:border-gray-700 rounded-lg p-2">
-       ${channel.channelNumber}  <img src="${channel.logo}" alt="${channel.name}" class="channel-logo w-10 rounded">
+               <span> </span>
+
+        ${channel.channelNumber}  <img src="${channel.logo}" alt="${channel.name}" class="channel-logo w-10 rounded">
         <p class="channel-name">
         
         ${channel.name}
         </p>
-        </button>`
+        </button> `
         )
         .join("")
 
@@ -80,4 +82,4 @@ channelsContainer.addEventListener("click" , (event) => {
 const channels = await getData();
 
 channelsData = channels;
-renderChannels(channelsData); 
+renderChannels(channels); 
