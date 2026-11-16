@@ -1,5 +1,5 @@
 import { getData  } from "./api.js";
-import { renderChannels , searchChannels } from "./ui.js";
+import { renderChannels , setChannels } from "./ui.js";
 
 
 
@@ -10,13 +10,12 @@ const loadChannels = async () => {
     message.textContent = "Chargement...."
     try {
         channels = await getData();
-        renderChannels(channels);
+        setChannels(channels);
        message.textContent = ""
     } catch (error) {
        // console.error('Erreur lors de la récupération des données :' , error);
         message.textContent = "Impossible de charger les chaines"
     } 
 }
-
  loadChannels();
 
