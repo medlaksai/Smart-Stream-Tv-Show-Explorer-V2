@@ -26,15 +26,13 @@ export function renderChannels(channels){
     channelsContainer.innerHTML = "";
     channelsContainer.innerHTML = channels.map((channel) =>
     `
-        <button type="button" id="${channel.id}" class="flex flex-rows shrink-0 gap-4 hover:bg-gray-700 w-full h-10 cursor-pointer hover:border hover:border-gray-700 rounded-lg p-2">
-               <span> </span>
-
+        <div type="button" id="${channel.id}" class="flex flex-rows shrink-0 gap-4 hover:bg-gray-700 w-full h-10 cursor-pointer hover:border hover:border-gray-700 rounded-lg p-2">
         ${channel.channelNumber}  <img src="${channel.logo}" alt="${channel.name}" class="channel-logo w-10 rounded">
         <p class="channel-name">
-        
         ${channel.name}
         </p>
-        </button> `
+        
+        </div> `
         )
         .join("")
 
@@ -56,7 +54,7 @@ filterChannel.addEventListener("input" , e => {
 
 
 channelsContainer.addEventListener("click" , (event) => {
-    const btn = event.target.closest("button")
+    const btn = event.target.closest("div")
     const title = document.getElementById("channel-title")
     const videoSrc = document.querySelector(".live-image") 
     const nowPlaying = document.getElementById("playing-now")
@@ -73,10 +71,13 @@ channelsContainer.addEventListener("click" , (event) => {
     title.textContent = selectedChannel.name  
     videoSrc.src = selectedChannel.previewImage 
 
-    channelsContainer.querySelectorAll("button").forEach(button => {
-        button.classList.remove("bg-blue-800");
+    channelsContainer.querySelectorAll("div").forEach(div => {
+        div.classList.remove("bg-blue-800");
     });
     btn.classList.add("bg-blue-800")
 })
 
-
+export function setChannels(channels){
+    channelsData = channels
+    renderChannels(channels)
+}
