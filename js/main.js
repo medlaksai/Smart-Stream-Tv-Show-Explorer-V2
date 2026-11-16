@@ -1,21 +1,22 @@
 import { getData  } from "./api.js";
-import { hideError, showError } from "./errors.js";
 import { renderChannels , searchChannels } from "./ui.js";
 
-async function init() {
-    hideError();
-    try {
-        //throw new Error("fffffffff");
-        const channels = await getData();
-        
-        renderChannels(channels);
-        searchChannels();
-    }
-    catch(error) {
-        showError();
-        console.error("Unable to load data" , error)
-        showError("impossible de charger data" +error.message , init);
-    }
 
+
+let channels = []
+
+const loadChannels = async () => {
+    const message = document.querySelector("#error-msg")
+    message.textContent = "Chargement...."
+    try {
+        channels = await getData();
+        renderChannels(channels);
+       message.textContent = ""
+    } catch (error) {
+       // console.error('Erreur lors de la récupération des données :' , error);
+        message.textContent = "Impossible de charger les chaines"
+    } 
 }
-init();
+
+ loadChannels();
+
