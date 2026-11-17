@@ -26,12 +26,13 @@ export function renderChannels(channels){
     channelsContainer.innerHTML = "";
     channelsContainer.innerHTML = channels.map((channel) =>
     `
-        <div type="button" id="${channel.id}" class="flex flex-rows shrink-0 gap-4 hover:bg-gray-700 w-full h-10 cursor-pointer hover:border hover:border-gray-700 rounded-lg p-2">
+        <div type="button" id="${channel.id}" class="flex flex-rows shrink-0 gap-4 hover:bg-gray-700 w-full h-10 cursor-pointer hover:border hover:border-gray-700 rounded-lg p-2 ">
         ${channel.channelNumber}  <img src="${channel.logo}" alt="${channel.name}" class="channel-logo w-10 rounded">
-        <p class="channel-name">
+        <p class="channel-name w-40">
         ${channel.name}
         </p>
-        
+        <button class="cursor-pointer w-5 " data-action="favorite">${channel.isFavorite === true ? "★" : "☆"}</button>
+        <button class="cursor-pointer " data-action="delete">🗑</button>
         </div> `
         )
         .join("")
@@ -53,7 +54,8 @@ filterChannel.addEventListener("input" , e => {
 })
 
 
-channelsContainer.addEventListener("click" , (event) => {
+
+channelsContainer.addEventListener("click" , (event) => {    
     const btn = event.target.closest("div")
     const title = document.getElementById("channel-title")
     const videoSrc = document.querySelector(".live-image") 
@@ -65,6 +67,7 @@ channelsContainer.addEventListener("click" , (event) => {
         
         channel => channel.id === channelId    
     )
+  
     nowPlaying.textContent = "Now Playing"
     titleNow.textContent = "Live News"
     periodHours.textContent = "12:30 PM - 13:00 PM"

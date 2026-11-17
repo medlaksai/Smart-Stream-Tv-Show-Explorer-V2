@@ -9,7 +9,7 @@ const loadChannels = async () => {
     const message = document.querySelector("#error-msg")
     message.textContent = "Chargement...."
     try {
-        channels = await getData();
+        channels =  await getData();
         setChannels(channels);
        message.textContent = ""
     } catch (error) {
