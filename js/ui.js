@@ -9,7 +9,9 @@ let channelsData = []
 let selectCategory = "Tout"
 
 export  function categoryFilter(){
-    if (selectCategory === "Tout") return channelsData ;
+    if (selectCategory === "Tout"){  return channelsData };
+     if (selectCategory === "Favorite"){ 
+     return channelsData.filter(channel => channel.isFavorite === true) }
      return channelsData.filter(channels => channels.category === selectCategory);
 }
 
@@ -82,7 +84,7 @@ channelsContainer.addEventListener("click" , async (event) => {
             
         } return
     }
-
+    
     if(action === "delete"){
         try {
             await deleteChannel(selectedChannel.id)
