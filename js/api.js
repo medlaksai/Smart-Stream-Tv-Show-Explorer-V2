@@ -27,7 +27,7 @@ export const createChannel = async (channel) => {
 // editing a channel 
 export const updateChannel = async (id , changes) => {
   const response = await fetch(`${dataApi}/${id}`,{
-    method: " PUT",
+    method: "PUT",
     headers: {"Content-Type" : "application/json"},
     body: JSON.stringify(changes),
   });
