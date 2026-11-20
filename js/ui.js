@@ -5,11 +5,15 @@ const filterChannel = document.getElementById("filterInput")
 const categoryContainer = document.getElementById("category-container")
 const msg = document.getElementById("messages")
 
-let channelsData = []
+export let channelsData = []
 let selectCategory = "Tout"
 
 export  function categoryFilter(){
-    if (selectCategory === "Tout"){  return channelsData };
+    if (selectCategory === "Tout"){  return channelsData.filter(channel => channel.isBlackListed === false) };
+    if (selectCategory === "BlackList") {
+        return channelsData.filter(channel => channel.isBlackListed === true)
+
+    }
      if (selectCategory === "Favorite"){ 
      return channelsData.filter(channel => channel.isFavorite === true) }
      return channelsData.filter(channels => channels.category === selectCategory);
@@ -33,12 +37,13 @@ export function renderChannels(channels){
         ${channel.name}
         </p>
         <button class="cursor-pointer w-5 "  data-action="favorite">${channel.isFavorite === true ? "★" : "☆"}</button>
+        <button class="cursor-pointer" data-action="blackList">${channel.isBlackListed === true ? "🏴" : "🏳"}</button>
         <button class="cursor-pointer "  data-action="delete">🗑</button>
         </div> `
         )
         .join("")
 
-       totalChannels.textContent = channels.length
+       totalChannels.textContent = channels.length 
 }
 
 let currentFilter = "";
@@ -84,7 +89,17 @@ channelsContainer.addEventListener("click" , async (event) => {
             
         } return
     }
-    
+    if (action === "blackList"){
+        const newValue = !selectedChannel.isBlackListed
+        try {
+            await updateChannel(selectedChannel.id , {isBlackListed: newValue})
+            selectedChannel.isBlackListed = newValue
+            renderChannels(categoryFilter())
+            msg.textContent = "Channel est Balck Listed"
+        } catch (error){
+            msg.textContent = "Error de blacklist"
+        }
+    }
     if(action === "delete"){
         try {
             await deleteChannel(selectedChannel.id)
@@ -108,15 +123,17 @@ channelsContainer.addEventListener("click" , async (event) => {
     periodHours.textContent = "12:30 PM - 13:00 PM"
     title.textContent = selectedChannel.name  
     videoSrc.src = selectedChannel.previewImage 
+    title.style.color = "rgb(132, 0, 247)"
     
-
     channelsContainer.querySelectorAll("div").forEach(div => {
         div.classList.remove("bg-blue-800");
     });
     btn.classList.add("bg-blue-800")
 })
-
+   
 export function setChannels(channels){
     channelsData = channels
     renderChannels(channels)
 }
+
+
