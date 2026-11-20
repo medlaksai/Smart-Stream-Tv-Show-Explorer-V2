@@ -1,15 +1,16 @@
 import { getData  } from "./api.js";
-import { renderChannels , setChannels } from "./ui.js";
+import { setChannels } from "./ui.js";
 
 
 
-let channels = []
+// let channels = [];
+
 
 const loadChannels = async () => {
     const message = document.querySelector("#error-msg")
     message.textContent = "Chargement...."
     try {
-        channels =  await getData();
+       const channels =  await getData();
         setChannels(channels);
        message.textContent = ""
     } catch (error) {
@@ -18,4 +19,7 @@ const loadChannels = async () => {
     } 
 }
  loadChannels();
+
+
+
 
