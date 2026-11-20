@@ -1,4 +1,4 @@
-import { deleteChannel, getData , updateChannel} from "./api.js";
+import { deleteChannel , updateChannel} from "./api.js";
 const channelsContainer = document.querySelector("#channels-container")
 const totalChannels = document.querySelector(".channels-total")
 const filterChannel = document.getElementById("filterInput")
@@ -82,7 +82,7 @@ channelsContainer.addEventListener("click" , async (event) => {
             await updateChannel(selectedChannel.id , { isFavorite: newValue})
             selectedChannel.isFavorite = newValue
             renderChannels(categoryFilter())
-            msg.textContent = "favori a ete ajoute"
+            msg.textContent = newValue ? "favori a ete ajoute" : "favori a ete retire"
         }catch (error){
             console.log("le favori n'est pas enregistré." , error)
             msg.textContent = "le favori n'est pas enregistré."
@@ -102,6 +102,8 @@ channelsContainer.addEventListener("click" , async (event) => {
     }
     if(action === "delete"){
         try {
+            confirm("Are you sure")
+            if(!confirm) return
             await deleteChannel(selectedChannel.id)
             channelsData = channelsData.filter(c => c.id !== selectedChannel.id)
             renderChannels(categoryFilter())
@@ -135,5 +137,4 @@ export function setChannels(channels){
     channelsData = channels
     renderChannels(channels)
 }
-
 
