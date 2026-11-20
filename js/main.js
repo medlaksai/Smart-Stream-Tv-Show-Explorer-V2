@@ -3,7 +3,8 @@ import { renderChannels , setChannels } from "./ui.js";
 
 
 
-let channels = []
+let channels = [];
+
 
 const loadChannels = async () => {
     const message = document.querySelector("#error-msg")
@@ -18,4 +19,9 @@ const loadChannels = async () => {
     } 
 }
  loadChannels();
+
+ 
+
+
+
 

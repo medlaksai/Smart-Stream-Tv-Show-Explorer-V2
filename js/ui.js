@@ -5,7 +5,7 @@ const filterChannel = document.getElementById("filterInput")
 const categoryContainer = document.getElementById("category-container")
 const msg = document.getElementById("messages")
 
-export let channelsData = []
+let channelsData = []
 let selectCategory = "Tout"
 
 export  function categoryFilter(){
